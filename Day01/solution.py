@@ -1,14 +1,21 @@
-from helpers import fileToList
+import fileinput
 
 
-def solveDay():
-    input = [int(item) for item in fileToList('Day01/input.txt')]
-    part1 = [item // 3 - 2 for item in input]
-    print('Part 1: ', sum(part1))
+def solveDay(myFile):
+    #data = [int(item) for item in fileToList(myFile)]
+    data = tuple(map(lambda it: int(it), fileinput.input(myFile)))
+    print('Part 1: ', sum(map(part1, data)))
+    print('Part 2: ', part2(data))
 
-    part2 = 0
-    for item in input:
+
+def part1(data):
+    return data // 3 - 2
+
+
+def part2(data):
+    fuel = 0
+    for item in data:
         while item > 0:
-            item = item // 3 - 2
-            part2 += item if item > 0 else 0
-    print('Part 2: ', part2)
+            item = part1(item)
+            fuel += item if item > 0 else 0
+    return fuel
